@@ -11,16 +11,16 @@ namespace AccountingNote.DBsource
 {
     public class AccountingManager
     {
-        private static string GetConnectionString()
-        {
-            string val =
-                ConfigurationManager.ConnectionStrings
-                ["DefaultConnection"].ConnectionString;
-            return val;
-        }
+        //private static string GetConnectionString()
+        //{
+        //    string val =
+        //        ConfigurationManager.ConnectionStrings
+        //        ["DefaultConnection"].ConnectionString;
+        //    return val;
+        //}
         public static DataTable GetAccounttingList(string userID)
         {
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbCommand =
                 @"SELECT 
                      ID,
@@ -62,7 +62,7 @@ namespace AccountingNote.DBsource
 
         public static DataRow GetAccounting(int id, string userID)
         {
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbCommand =
                 @"SELECT 
                      ID,
@@ -112,7 +112,7 @@ namespace AccountingNote.DBsource
 
             if (actType < 0 || actType > 1)
                 throw new ArgumentException("ActType must be 0 or 1.");
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbcommand =
                 $@"INSERT INTO [dbo].[Accounting]
                    (
@@ -169,7 +169,7 @@ namespace AccountingNote.DBsource
             if (actType < 0 || actType > 1)
                 throw new ArgumentException("ActType must be 0 or 1.");
             
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbcommand =
                 $@"UPDATE [Accounting]
                       UserID       = @userID
@@ -216,7 +216,7 @@ namespace AccountingNote.DBsource
 
         public static void DeleteAccounting(int ID)
         {
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbcommand =
                 $@"DELETE [Accounting]
                     WHERE ID =@id ";
@@ -247,7 +247,7 @@ namespace AccountingNote.DBsource
 
         public static DataTable GettestcounttingList(string userID)
         {
-            string connStr = GetConnectionString();
+            string connStr = DBHelper.GetConnectionString();
             string dbCommand =
                 @"SELECT [dbo].[UserInfo]
                      ID,

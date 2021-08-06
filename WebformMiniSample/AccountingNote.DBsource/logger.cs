@@ -10,8 +10,9 @@ namespace AccountingNote.DBsource
     {
         public static void WriteLog(Exception ex)
         {
-            string Msg=
-                $@"                  ":
+            string Msg =
+                $@"{ DateTime .Now .ToString ("yyyy-MM-dd HH:mm:ss")  }
+                  {ex.ToString ()}  ";
             System.IO.File.AppendAllText("D:\\logs\\logs.log", ex.ToString());
             throw ex;
         }
