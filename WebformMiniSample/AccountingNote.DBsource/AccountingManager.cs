@@ -11,13 +11,7 @@ namespace AccountingNote.DBsource
 {
     public class AccountingManager
     {
-        //private static string GetConnectionString()
-        //{
-        //    string val =
-        //        ConfigurationManager.ConnectionStrings
-        //        ["DefaultConnection"].ConnectionString;
-        //    return val;
-        //}
+       
         public static DataTable GetAccounttingList(string userID)
         {
             string connStr = DBHelper.GetConnectionString();
@@ -33,30 +27,17 @@ namespace AccountingNote.DBsource
                   WHERE UserID = @userID  
                   ";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            List<SqlParameter> list = new List<SqlParameter>();
+            list.Add(new SqlParameter("@userID", userID));
+
+            try
             {
-                using (SqlCommand comm = new SqlCommand(dbCommand, conn))
-                {
-                    comm.Parameters.AddWithValue("@userID", userID);
-
-                    try
-                    {
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
-
-                        return dt;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.WriteLog(ex);
-                        return null;
-                    }
-                }
-
+                return DBHelper.ReadDataTable(connStr, dbCommand, list);
+            }
+            catch (Exception ex)
+            {
+                logger.WriteLog(ex);
+                return null;
             }
         }
 
